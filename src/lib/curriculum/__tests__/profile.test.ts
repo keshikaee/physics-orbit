@@ -74,7 +74,7 @@ describe("student details validation", () => {
   });
 
   it("registration needs the account fields too", () => {
-    const r = registrationSchema.safeParse({ ...ok, firstName: "Keshika", lastName: "S", email: "k@example.com", password: "abcdefg1" });
+    const r = registrationSchema.safeParse({ ...ok, firstName: "Asha", lastName: "Perera", email: "k@example.com", password: "abcdefg1" });
     expect(r.success).toBe(true);
     expect(registrationSchema.safeParse(ok).success).toBe(false);
   });
