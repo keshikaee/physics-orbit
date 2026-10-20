@@ -1,26 +1,318 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Light theme only; `dark:` utilities apply only under an explicit .dark class. */
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Tailwind Theme: Orbit tokens + shadcn mappings ─── */
 
 @theme inline {
+  /* shadcn component color mappings */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ── Orbit color tokens ── */
+  --color-orbit-bg: var(--orbit-bg);
+  --color-orbit-canvas: var(--orbit-canvas);
+  --color-orbit-surface: var(--orbit-surface);
+  --color-orbit-panel: var(--orbit-panel);
+  --color-orbit-panel-hover: var(--orbit-panel-hover);
+  --color-orbit-border: var(--orbit-border);
+  --color-orbit-border-subtle: var(--orbit-border-subtle);
+  --color-orbit-primary: var(--orbit-primary);
+  --color-orbit-primary-hover: var(--orbit-primary-hover);
+  --color-orbit-primary-text: var(--orbit-primary-text);
+  --color-orbit-primary-muted: var(--orbit-primary-muted);
+  --color-orbit-text: var(--orbit-text);
+  --color-orbit-text-secondary: var(--orbit-text-secondary);
+  --color-orbit-text-muted: var(--orbit-text-muted);
+  --color-orbit-success: var(--orbit-success);
+  --color-orbit-success-muted: var(--orbit-success-muted);
+  --color-orbit-warning: var(--orbit-warning);
+  --color-orbit-warning-muted: var(--orbit-warning-muted);
+  --color-orbit-error: var(--orbit-error);
+  --color-orbit-error-muted: var(--orbit-error-muted);
+
+  /* ── Elevation ── */
+  --shadow-card: 0 1px 2px rgba(20, 83, 45, 0.04), 0 2px 10px rgba(20, 83, 45, 0.035);
+  --shadow-lift: 0 2px 4px rgba(20, 83, 45, 0.04), 0 12px 32px rgba(20, 83, 45, 0.09);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Palette: soft green & white (text pairs ≥ WCAG AA) ─── */
+
+:root {
+  --orbit-bg: #ffffff;
+  --orbit-canvas: #f9fbfa;        /* app background behind white cards */
+  --orbit-surface: #ffffff;       /* cards */
+  --orbit-panel: #f4faf6;         /* very light green — inputs, subtle fills */
+  --orbit-panel-hover: #e8f5ec;   /* soft mint */
+  --orbit-border: #e5ebe7;
+  --orbit-border-subtle: #eef3f0;
+  --orbit-primary: #166534;       /* buttons / fills (white text 7.1:1) */
+  --orbit-primary-hover: #14532d;
+  --orbit-primary-text: #166534;  /* green text & icons (≥ 6.3:1 on mint) */
+  --orbit-primary-muted: #e8f5ec;
+  --orbit-text: #172b22;          /* 14.9:1 */
+  --orbit-text-secondary: #5e6f65;/* 5.3:1 on white, 4.75:1 on mint */
+  --orbit-text-muted: #64756b;    /* 4.9:1 on white — not for use on mint */
+  --orbit-success: #166534;
+  --orbit-success-muted: #e8f5ec;
+  --orbit-warning: #92400e;
+  --orbit-warning-muted: #fef6e4;
+  --orbit-error: #b42318;
+  --orbit-error-muted: #fef0ee;
+
+  /* shadcn semantic mappings → orbit colors */
+  --background: var(--orbit-bg);
+  --foreground: var(--orbit-text);
+  --card: var(--orbit-surface);
+  --card-foreground: var(--orbit-text);
+  --popover: var(--orbit-surface);
+  --popover-foreground: var(--orbit-text);
+  --primary: var(--orbit-primary);
+  --primary-foreground: #ffffff;
+  --secondary: var(--orbit-panel-hover);
+  --secondary-foreground: var(--orbit-primary-hover);
+  --muted: var(--orbit-panel);
+  --muted-foreground: var(--orbit-text-secondary);
+  --accent: var(--orbit-panel-hover);
+  --accent-foreground: var(--orbit-primary-hover);
+  --destructive: var(--orbit-error);
+  --border: var(--orbit-border);
+  --input: var(--orbit-border);
+  --ring: var(--orbit-primary);
+
+  --chart-1: #166534;
+  --chart-2: #2f855a;
+  --chart-3: #68a982;
+  --chart-4: #a7d3b5;
+  --chart-5: #92400e;
+
+  --sidebar: var(--orbit-surface);
+  --sidebar-foreground: var(--orbit-text);
+  --sidebar-primary: var(--orbit-primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--orbit-panel-hover);
+  --sidebar-accent-foreground: var(--orbit-primary-hover);
+  --sidebar-border: var(--orbit-border);
+  --sidebar-ring: var(--orbit-primary);
+
+  --radius: 0.75rem;
+}
+
+/* ─── Base Layer ─── */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans scroll-smooth;
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-background text-foreground min-h-screen;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--orbit-primary);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--orbit-border);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #cfd9d3;
+  }
+
+  ::selection {
+    background-color: var(--orbit-panel-hover);
+    color: var(--orbit-primary-hover);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Orbit Utility Classes ─── */
+
+/* Primary action: solid deep green. */
+.btn-primary {
+  background-color: var(--orbit-primary);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(20, 83, 45, 0.18);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background-color: var(--orbit-primary-hover);
+  box-shadow: 0 6px 18px rgba(20, 83, 45, 0.22);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* Secondary action: white with a hairline border. */
+.btn-secondary {
+  background-color: var(--orbit-surface);
+  color: var(--orbit-text);
+  border: 1px solid var(--orbit-border);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-secondary:hover {
+  background-color: var(--orbit-panel);
+  border-color: #d3ddd7;
+}
+
+/* Card that gently rises on hover. */
+.card-lift {
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+.card-lift:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+
+/* Soft mint wash for hero panels. */
+.mint-wash {
+  background:
+    radial-gradient(ellipse at 85% 30%, rgba(22, 101, 52, 0.08) 0%, transparent 55%),
+    linear-gradient(135deg, #f4faf6 0%, #e8f5ec 100%);
+}
+
+/* Faint dot grid behind illustrations. */
+.dot-grid {
+  background-image: radial-gradient(rgba(22, 101, 52, 0.12) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* Page entrance. */
+@keyframes orbit-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: orbit-rise 0.35s ease-out both;
+}
+
+/* Slow drift for the hero satellite. */
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-orbit {
+  animation: orbit-spin 40s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* ─── Reduced Motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Roadmap diagrams (React Flow) — calm, thin, on-theme ── */
+.roadmap-canvas .react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--orbit-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+}
+.roadmap-canvas .react-flow__controls-button {
+  width: 30px;
+  height: 30px;
+  border-bottom: 1px solid var(--orbit-border-subtle);
+  background: #fff;
+  color: var(--orbit-text-secondary);
+}
+.roadmap-canvas .react-flow__controls-button:hover {
+  background: var(--orbit-panel);
+}
+.roadmap-canvas .react-flow__edge.selected .react-flow__edge-path,
+.roadmap-canvas .react-flow__edge:focus-visible .react-flow__edge-path {
+  stroke: var(--orbit-primary) !important;
+  stroke-width: 2px !important;
+}
+.roadmap-canvas .react-flow__node:focus-visible {
+  outline: 2px solid var(--orbit-primary);
+  outline-offset: 3px;
+  border-radius: 16px;
+}
+.roadmap-canvas .react-flow__attribution {
+  background: transparent;
+  font-size: 10px;
+}
+.roadmap-canvas .react-flow__attribution a {
+  color: var(--orbit-text-muted);
 }
