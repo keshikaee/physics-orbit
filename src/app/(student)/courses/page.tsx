@@ -7,6 +7,7 @@ import { UnitCard } from "@/components/content/unit-card";
 import { getUnitProgress } from "@/lib/roadmap/queries";
 import { EmptyState } from "@/components/content/empty-state";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { TrackVisit } from "@/components/activity/track-visit";
 
 export const metadata: Metadata = {
   title: "Courses",
@@ -37,6 +38,7 @@ async function CourseOverview() {
   const { course, units } = result;
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-5 sm:p-8 animate-rise">
+      <TrackVisit kind="courses_view" />
       <header className="max-w-3xl">
         <p className="text-sm font-medium text-orbit-primary-text">Your course · {profile.curriculum.name}</p>
         <h1 className="mt-1 text-3xl font-semibold tracking-tight text-orbit-text sm:text-4xl">{course.title}</h1>

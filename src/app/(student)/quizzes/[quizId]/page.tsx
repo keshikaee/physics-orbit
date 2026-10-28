@@ -7,6 +7,7 @@ import { requireStudent } from "@/lib/auth/dal";
 import { idSchema } from "@/lib/content/schemas";
 import { getQuizForStudent } from "@/lib/roadmap/queries";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { TrackVisit } from "@/components/activity/track-visit";
 import { EmptyState } from "@/components/content/empty-state";
 import { RichText } from "@/components/content/notes-view";
 import { QuizRunner } from "@/components/roadmap/quiz-runner";
@@ -37,6 +38,7 @@ async function Quiz({ params }: { params: Promise<{ quizId: string }> }) {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-5 sm:p-8 animate-rise">
+      <TrackVisit kind="quiz_view" target={quiz.id} />
       <Link href={`/courses/${unit.slug}`} className="inline-flex items-center gap-1.5 text-sm text-orbit-text-secondary hover:text-orbit-text">
         <ArrowLeft size={15} aria-hidden="true" /> {unit.code} roadmap
       </Link>

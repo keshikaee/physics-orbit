@@ -9,6 +9,7 @@ import { getStudentRoadmap } from "@/lib/roadmap/queries";
 import { StudentRoadmap } from "@/components/roadmap/student-roadmap";
 import { EmptyState } from "@/components/content/empty-state";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { TrackVisit } from "@/components/activity/track-visit";
 import { UnitArt } from "@/components/illustrations/unit-art";
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ async function UnitOverview({ params }: { params: Promise<{ unitSlug: string }> 
   const roadmap = unit.is_placeholder ? null : await getStudentRoadmap(unit.id, profile.id);
   return (
     <div className="mx-auto max-w-5xl space-y-8 p-5 sm:p-8 animate-rise">
+      <TrackVisit kind="unit_view" target={unit.id} />
       <Link
         href="/courses"
         className="inline-flex items-center gap-1.5 text-sm text-orbit-text-secondary transition-colors hover:text-orbit-text"

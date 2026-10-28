@@ -9,6 +9,7 @@ import { idSchema } from "@/lib/content/schemas";
 import { parseVideoUrl } from "@/lib/content/video";
 import { NotesView } from "@/components/content/notes-view";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { TrackVisit } from "@/components/activity/track-visit";
 import { MATERIAL_ICONS } from "@/components/admin/material-icons";
 import type { Material } from "@/types";
 
@@ -38,6 +39,7 @@ async function MaterialView({ params }: { params: Promise<{ unitSlug: string; to
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-5 sm:p-8 animate-rise">
+      <TrackVisit kind="material_view" target={material.id} />
       <Link
         href={`/courses/${unit.slug}/${topic.slug}`}
         className="inline-flex items-center gap-1.5 text-sm text-orbit-text-secondary transition-colors hover:text-orbit-text"

@@ -108,6 +108,12 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
     return { message: "Your account has been suspended. Please contact your administrator." };
   }
 
+  // Interaction history (admin analytics). Never blocks sign-in.
+  if (profile.role === "student") {
+    const { error: logError } = await supabase.rpc("log_activity", { p_kind: "sign_in" });
+    if (logError) console.error("[activity] sign-in log failed:", logError.message);
+  }
+
   const home = homeForRole(profile.role);
   const next = safeNextPath(values.next, home);
   // Don't send a student to an admin page (or vice versa) just because ?next= says so.

@@ -15,7 +15,8 @@
     "test:roadmap": "node --env-file=.env.local scripts/test-roadmap.mjs",
     "test:curriculum": "node --env-file=.env.local scripts/test-curriculum.mjs",
     "db:status": "node --env-file=.env.local scripts/db.mjs status",
-    "db:push": "node --env-file=.env.local scripts/db.mjs push"
+    "db:push": "node --env-file=.env.local scripts/db.mjs push",
+    "test:activity": "node --env-file=.env.local scripts/test-activity.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

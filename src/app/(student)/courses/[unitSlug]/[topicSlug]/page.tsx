@@ -7,6 +7,7 @@ import { requireStudent } from "@/lib/auth/dal";
 import { getTopicWithMaterials } from "@/lib/content/queries";
 import { EmptyState } from "@/components/content/empty-state";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { TrackVisit } from "@/components/activity/track-visit";
 import { MATERIAL_ICONS } from "@/components/admin/material-icons";
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ async function Topic({ params }: { params: Promise<{ unitSlug: string; topicSlug
   const { unit, topic, materials } = result;
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-5 sm:p-8 animate-rise">
+      <TrackVisit kind="topic_view" target={topic.id} />
       <Link
         href={`/courses/${unit.slug}`}
         className="inline-flex items-center gap-1.5 text-sm text-orbit-text-secondary transition-colors hover:text-orbit-text"

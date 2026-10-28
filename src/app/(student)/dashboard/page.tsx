@@ -18,6 +18,7 @@ import {
 import { requireStudent } from "@/lib/auth/dal";
 import { getCourseWithUnits, getUnitWithTopics } from "@/lib/content/queries";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { TrackVisit } from "@/components/activity/track-visit";
 import { UnitCard } from "@/components/content/unit-card";
 import { getUnitProgress } from "@/lib/roadmap/queries";
 import { EmptyState } from "@/components/content/empty-state";
@@ -49,6 +50,7 @@ async function StudentDashboard() {
 
   return (
     <div className="mx-auto max-w-7xl p-5 sm:p-8 animate-rise">
+      <TrackVisit kind="dashboard_view" />
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="min-w-0 space-y-8">
           {/* 1 — What am I learning, and where do I continue? */}

@@ -13,6 +13,7 @@ import { StudentAccessTree } from "@/components/admin/student-access";
 import { getStudentProgress } from "@/lib/roadmap/queries";
 import { StudentProgress } from "@/components/roadmap/student-progress";
 import { DashboardSkeleton } from "@/components/layout/dashboard-skeleton";
+import { StudentActivitySection } from "@/components/activity/student-activity";
 
 export const metadata: Metadata = {
   title: "Student",
@@ -136,6 +137,10 @@ async function Student({ params }: { params: Promise<{ studentId: string }> }) {
           </section>
         </>
       )}
+
+      <Suspense fallback={<div className="h-64 animate-pulse rounded-2xl bg-orbit-panel" />}>
+        <StudentActivitySection studentId={student.id} />
+      </Suspense>
     </div>
   );
 }
