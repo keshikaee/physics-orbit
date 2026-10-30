@@ -270,9 +270,24 @@
   transform-box: fill-box;
 }
 
+/* Section entrance on scroll (public site). CSS-only: browsers without
+   scroll-driven animations, or with reduced motion, simply show content. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: orbit-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
 /* ─── Reduced Motion ─── */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
